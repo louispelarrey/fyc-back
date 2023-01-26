@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Messages } from "src/messages/messages.entity";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 
 @Entity()
 export class Channels {
@@ -7,4 +8,7 @@ export class Channels {
 
     @Column()
     name: string;
+
+    @OneToMany(type => Messages, message => message.channel)
+    messages: Messages[];
 }
