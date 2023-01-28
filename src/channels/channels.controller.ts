@@ -1,10 +1,9 @@
-import { Controller, NotFoundException } from '@nestjs/common';
+import { ClassSerializerInterceptor, Controller, NotFoundException, UseInterceptors } from '@nestjs/common';
 import { Body, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { CreateChannelDto } from './dto/create-channel.dto';
 import { UpdateChannelDto } from './dto/update-channel.dto';
 import { ChannelsService } from './channels.service';
 
-// this is used to create a new channel in a discord like app
 @Controller('channels')
 export class ChannelsController {
     constructor(private readonly ChannelsService: ChannelsService) { }
@@ -14,13 +13,13 @@ export class ChannelsController {
         return this.ChannelsService.createChannel(createChannelDto.name);
     }
 
-    // get all channels
+    @UseInterceptors(ClassSerializerInterceptor)
     @Get()
     findAll() {
         return this.ChannelsService.getChannels();
     }
-
-    // get a single channel
+    
+    @UseInterceptors(ClassSerializerInterceptor)
     @Get(':id')
     findOne(@Param('id') id: number) {
         return this.ChannelsService.getChannel(id);

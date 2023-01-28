@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Post, Put, UseInterceptors } from '@nestjs/common';
 import { Users } from './users.entity';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -16,9 +16,9 @@ export class UsersController {
         return await this.usersService.findAll();
     }
 
-    @Get()
-    async findByEmail(email: string): Promise<Users | undefined> {
-        return await this.usersService.findByEmail(email);
+    @Get(':id')
+    async findOne(id: number): Promise<Users> {
+        return await this.usersService.findOne(id);
     }
 
     @Post()

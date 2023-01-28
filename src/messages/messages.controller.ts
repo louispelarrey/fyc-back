@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, NotFoundException, Param, Post, Put, UseInterceptors } from '@nestjs/common';
+import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessagesDto } from './dto/update-messages.dto';
 import { MessagesService } from './messages.service';
 
@@ -7,8 +8,8 @@ export class MessagesController {
     constructor(private readonly messagesService: MessagesService) {}
 
     @Post()
-    create(@Body() updateMessagesDto: UpdateMessagesDto) {
-        return this.messagesService.createMessage(updateMessagesDto.message);
+    create(@Body() createMessageDto: CreateMessageDto) {
+        return this.messagesService.createMessage(createMessageDto.message, createMessageDto.senderId, createMessageDto.channelId);
     }
 
     // get all channels

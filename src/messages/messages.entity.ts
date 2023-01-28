@@ -13,9 +13,9 @@ export class Messages {
     @Column({ default: Date.now() })
     date: Date;
 
-    @ManyToOne(type => Channels, channel => channel.messages)
+    @ManyToOne(() => Channels, channel => channel.messages)
     channel: Channels;
 
-    @ManyToOne(type => Users, user => user.messages)
+    @ManyToOne(() => Users, user => user.messages)
     senderUser: Users;
 }

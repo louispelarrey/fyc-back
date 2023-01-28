@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany } from 'typeorm';
 import { Messages } from 'src/messages/messages.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class Users {
@@ -10,6 +11,7 @@ export class Users {
     email: string;
 
     @Column()
+    @Exclude({ toPlainOnly: true })
     password: string;
 
     @Column()
