@@ -1,5 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Messages } from 'src/messages/messages.entity';
+import { Exclude } from 'class-transformer';
+import { Role } from 'src/roles/enums/role.enum';
 
 @Entity()
 export class Users {
@@ -10,14 +12,15 @@ export class Users {
     email: string;
 
     @Column()
+    @Exclude({ toPlainOnly: true })
     password: string;
 
     @Column()
     nickname: string;
 
-    @Column()
+    @Column({ default: JSON.stringify([Role.User])})
     role: string;
     
-    @OneToMany(type => Messages, message => message.senderUser)
+    @OneToMany(() => Messages, message => message.senderUser)
     messages: Messages[];
 }

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -6,6 +6,7 @@ import { ChannelsModule } from './channels/channels.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { MessagesModule } from './messages/messages.module';
+import { RolesGuard } from './roles/guards/roles.guards';
 
 
 @Module({
@@ -22,6 +23,16 @@ import { MessagesModule } from './messages/messages.module';
     MessagesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: 'APP_INTERCEPTOR',
+      useClass: ClassSerializerInterceptor
+    },
+    {
+      provide: 'APP_GUARD',
+      useClass: RolesGuard
+    }
+  ],
 })
 export class AppModule {}
