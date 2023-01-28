@@ -6,6 +6,7 @@ import { ChannelsModule } from './channels/channels.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { MessagesModule } from './messages/messages.module';
+import { RolesGuard } from './roles/guards/roles.guards';
 
 
 @Module({
@@ -27,6 +28,10 @@ import { MessagesModule } from './messages/messages.module';
     {
       provide: 'APP_INTERCEPTOR',
       useClass: ClassSerializerInterceptor
+    },
+    {
+      provide: 'APP_GUARD',
+      useClass: RolesGuard
     }
   ],
 })
