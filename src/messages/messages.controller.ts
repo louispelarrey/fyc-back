@@ -16,6 +16,12 @@ export class MessagesController {
         return this.messagesService.findAll();
     }
 
+    @Get('channel/:id')
+    @UseGuards(JwtAuthGuard)
+    findAllByChannel(@Param('id') id: number) {
+        return this.messagesService.findAllByChannel(id);
+    }
+
     @Get(':id')
     @UseGuards(JwtAuthGuard)
     findOne(@Param('id') id: number) {
@@ -43,6 +49,4 @@ export class MessagesController {
     remove(@Param('id') id: number) {
         return this.messagesService.deleteMessage(id);
     }
-
-
 }
