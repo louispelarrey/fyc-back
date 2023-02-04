@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { MessagesModule } from './messages/messages.module';
 import { RolesGuard } from './roles/guards/roles.guards';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 
 
 @Module({
@@ -29,10 +30,6 @@ import { RolesGuard } from './roles/guards/roles.guards';
       provide: 'APP_INTERCEPTOR',
       useClass: ClassSerializerInterceptor
     },
-    {
-      provide: 'APP_GUARD',
-      useClass: RolesGuard
-    }
   ],
 })
 export class AppModule {}

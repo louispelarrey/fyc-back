@@ -14,7 +14,7 @@ export class UsersService {
 
     async findOne(id: number): Promise<Users> {
         const user = await this.usersRepository.findOne({ where: { id } });
-        user.role = JSON.parse(user.role);
+        user.roles = JSON.parse(user.roles);
 
         return user;
     }
@@ -25,7 +25,7 @@ export class UsersService {
                 email: email
             }
         });
-        user.role = JSON.parse(user.role);
+        user.roles = JSON.parse(user.roles);
 
         return user;
     }
@@ -38,7 +38,7 @@ export class UsersService {
         const user = new Users();
         user.email = email;
         user.password = password;
-        user.role = JSON.stringify(role);
+        user.roles = JSON.stringify(role);
         user.nickname = nickname;
         return await this.usersRepository.save(user);
     }

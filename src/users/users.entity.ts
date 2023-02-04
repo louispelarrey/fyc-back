@@ -19,7 +19,7 @@ export class Users {
     nickname: string;
 
     @Column({ default: JSON.stringify([Role.User])})
-    role: string;
+    roles: string;
     
     @OneToMany(() => Messages, message => message.senderUser)
     messages: Messages[];

@@ -6,6 +6,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Roles } from 'src/roles/decorators/roles.decorator';
 import { Role } from 'src/roles/enums/role.enum';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UsersController {
@@ -37,6 +38,7 @@ export class UsersController {
         return await this.usersService.updateUser(id, updateUserDto.email, updateUserDto.password);
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Delete(':id')
     @Roles(Role.Admin)
     async deleteUser(id: number): Promise<Users> {
