@@ -7,6 +7,7 @@ import { Roles } from 'src/roles/decorators/roles.decorator';
 import { Role } from 'src/roles/enums/role.enum';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/roles/guards/roles.guards';
 
 @Controller('users')
 export class UsersController {
@@ -32,15 +33,16 @@ export class UsersController {
         return await this.usersService.createUser(createUserDto.email, createUserDto.password, createUserDto.role, createUserDto.nickname);
     }
 
-    @Put(':id')
     @Roles(Role.Admin)
+    @UseGuards(AuthGuard('jwt'), RolesGuard)
+    @Put(':id')
     async updateUser(@Body() updateUserDto: UpdateUserDto, id: number): Promise<Users> {
         return await this.usersService.updateUser(id, updateUserDto.email, updateUserDto.password);
     }
 
-    @UseGuards(AuthGuard('jwt'))
-    @Delete(':id')
     @Roles(Role.Admin)
+    @UseGuards(AuthGuard('jwt'), RolesGuard)
+    @Delete(':id')
     async deleteUser(id: number): Promise<Users> {
         return await this.usersService.deleteUser(id);
     }

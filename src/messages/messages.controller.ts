@@ -36,8 +36,9 @@ export class MessagesController {
         return this.messagesService.createMessage(createMessageDto.message, createMessageDto.senderId, createMessageDto.channelId);
     }
 
-    @Put(':id')
     @Roles(Role.Admin)
+    @UseGuards(AuthGuard('jwt'), RolesGuard)
+    @Put(':id')
     update(@Param('id') id: number, @Body() updateMessagesDto: UpdateMessagesDto) {
         if (!this.messagesService.updateMessage(id, updateMessagesDto.message)) {
             throw new NotFoundException('Channel not found');
