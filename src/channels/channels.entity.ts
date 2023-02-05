@@ -9,6 +9,6 @@ export class Channels {
     @Column()
     name: string;
 
-    @OneToMany(type => Messages, message => message.channel)
+    @OneToMany(type => Messages, message => message.channel, { cascade: true })
     messages: Messages[];
 }
