@@ -13,9 +13,9 @@ export class Messages {
     @Column({ default: Date.now() })
     date: Date;
 
-    @ManyToOne(() => Channels, channel => channel.messages)
+    @ManyToOne(() => Channels, channel => channel.messages, { onDelete: 'CASCADE' })
     channel: Channels;
 
-    @ManyToOne(() => Users, user => user.messages)
+    @ManyToOne(() => Users, user => user.messages, { onDelete: 'CASCADE' })
     senderUser: Users;
 }

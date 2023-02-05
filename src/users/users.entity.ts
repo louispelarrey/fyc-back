@@ -21,6 +21,6 @@ export class Users {
     @Column({ default: JSON.stringify([Role.User])})
     roles: string;
     
-    @OneToMany(() => Messages, message => message.senderUser, { cascade: true })
+    @OneToMany(() => Messages, message => message.senderUser)
     messages: Messages[];
 }
