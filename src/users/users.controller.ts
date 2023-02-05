@@ -1,4 +1,4 @@
-import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Users } from './users.entity';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -24,7 +24,7 @@ export class UsersController {
 
     @Get(':id')
     @UseGuards(JwtAuthGuard)
-    async findOne(id: number): Promise<Users> {
+    async findOne(@Param('id') id: number): Promise<Users> {
         return await this.usersService.findOne(id);
     }
 
