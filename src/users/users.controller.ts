@@ -43,7 +43,7 @@ export class UsersController {
     @Roles(Role.Admin)
     @UseGuards(AuthGuard('jwt'), RolesGuard)
     @Delete(':id')
-    async deleteUser(id: number): Promise<Users> {
+    async deleteUser(@Param('id') id: number): Promise<Users> {
         return await this.usersService.deleteUser(id);
     }
 }
